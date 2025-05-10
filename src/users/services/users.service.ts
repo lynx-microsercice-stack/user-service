@@ -22,6 +22,7 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
+    let _user_id;
     try {
       this.logger.log(`Creating user with email: ${createUserDto.email}`);
       const authDtoReq: AuthServiceRegisterUserReqDto = createUserDto;
@@ -48,7 +49,8 @@ export class UsersService {
       };
 
       const user = await this.userRepository.save(formattedData);
-
+      _user_id = user.id;
+      this.logger.log(`User created successfully with ID: ${user.id}`);
       // register user in auth service
       const authData: AuthServiceResponseDto =
         await this.apiClientService.retryFetchTokenWrapper(async () =>
@@ -84,6 +86,8 @@ export class UsersService {
       return updatedUser;
     } catch (error) {
       this.logger.error(`Failed to create user: ${error.message}`, error.stack);
+      await this.userRepository.delete(_user_id);
+      this.logger.log(`User deleted successfully with ID: ${_user_id}`);
       throw error;
     }
   }
@@ -96,6 +100,7 @@ export class UsersService {
         authId: false,
       },
     });
+    console.log('users', users);
     this.logger.log(`Found ${users.length} users`);
     return users;
   }

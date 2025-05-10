@@ -18,7 +18,6 @@ export class RoleAuthGuard implements CanActivate {
       ROLES_KEY,
       [context.getHandler(), context.getClass()],
     );
-
     if (!requiredRoles) {
       return true;
     }
@@ -26,7 +25,6 @@ export class RoleAuthGuard implements CanActivate {
     const request: Request = context.switchToHttp().getRequest();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const user = (request as any).user;
-
     // If user is not defined, authentication failed
     if (!user) {
       throw new UnauthorizedException('User not authenticated');

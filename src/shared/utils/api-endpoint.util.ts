@@ -14,6 +14,7 @@ export class ApiEndpoints {
     register: () => `${this.auth.baseUrl()}/register`,
     validate: () => `${this.auth.baseUrl()}/validate`,
     fetchToken: () => `${this.auth.baseUrl()}/token/client`,
+    fetchCertificateToken: () => `${this.auth.baseUrl()}/token/certificate`,
     delete: (keycloakId: string) =>
       `${this.auth.baseUrl()}/delete/user/${keycloakId}`,
     findUserByKeycloakId: (keycloakId: string) =>

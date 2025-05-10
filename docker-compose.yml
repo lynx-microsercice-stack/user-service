@@ -17,6 +17,29 @@ services:
       retries: 5
     networks:
       - user_service_network
+
+  app:
+    build:
+      context: .
+      target: production
+    container_name: user_service_app
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${DB_USERNAME:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_NAME:-user_service}
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    ports:
+      - "${PORT:-3000}:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - user_service_network
+
   redis:
     image: redis:latest
     container_name: user_service_redis

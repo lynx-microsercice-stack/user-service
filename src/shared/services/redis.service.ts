@@ -35,12 +35,8 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   /**
    * Retrieve a technical token
    */
-  async getToken(key: string): Promise<string> {
-    const token = await this.redisClient.get(key);
-    if (!token) {
-      throw new Error('Token not found');
-    }
-    return token;
+  async getToken(key: string): Promise<string | null> {
+    return await this.redisClient.get(key)
   }
 
   /**

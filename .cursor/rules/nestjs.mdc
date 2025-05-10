@@ -129,7 +129,7 @@ Generate code, corrections, and refactorings that comply with the basic principl
 - This is a part of microservice 
 - Register to eurka server
 ### Database
-- Using prisma to manage and query database
+- Using typeorm to manage and query database
 - Using postgres
 
 ### Packages manager

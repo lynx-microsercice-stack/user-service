@@ -19,10 +19,10 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "typeorm-ts-node-commonjs",
-    "migrate:create": "yarn typeorm -- migration:create",
-    "migrate:generate": "yarn typeorm -- migration:generate -d src/config/typeorm.config.ts",
-    "migrate:run": "yarn typeorm -- migration:run -d src/config/typeorm.config.ts",
-    "migrate:revert": "yarn typeorm -- migration:revert -d src/config/typeorm.config.ts"
+    "migrate:create": "yarn typeorm migration:create src/migrations/migrate-default-name",
+    "migrate:generate": "yarn typeorm migration:generate src/migrations/migrate-default-name -p true -d src/config/typeorm.config.ts",
+    "migrate:run": "yarn typeorm migration:run -d src/config/typeorm.config.ts",
+    "migrate:revert": "yarn typeorm migration:revert -d src/config/typeorm.config.ts"
   },
   "dependencies": {
     "@nestjs/cache-manager": "^3.0.1",
@@ -41,8 +41,10 @@
     "eureka-js-client": "^4.5.0",
     "ioredis": "^5.6.0",
     "jwks-rsa": "^3.2.0",
+    "keyv": "^5.0.0",
     "pg": "^8.14.1",
     "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
     "typeorm": "^0.3.21"
   },
   "devDependencies": {
